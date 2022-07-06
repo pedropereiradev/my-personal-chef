@@ -62,6 +62,3 @@ const IngredientsRecipes = () => {
 };
 
 export default IngredientsRecipes;
-
-// SOURCE
-// 1281 https://stackoverflow.com/questions/34883068/how-to-get-first-n-number-of-elements-from-an-array get N first items

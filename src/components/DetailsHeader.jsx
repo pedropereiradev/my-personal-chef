@@ -14,7 +14,6 @@ function DetailsImage() {
   const location = useLocation();
   const { recipeDetails } = useContext(Context);
   const [favorite, setFavorite] = useState(false);
-  // const [showMessage, setShowMessage] = useState(false);
   const [recipeInfo, setRecipeInfo] = useState({
     id: '',
     type: '',
@@ -34,13 +33,6 @@ function DetailsImage() {
 
     setFavorite((prevFavorite) => (!prevFavorite));
   };
-
-  // if (showMessage) {
-  //   const MESSAGE_TIME = 2000;
-  //   setTimeout(() => {
-  //     setShowMessage(false);
-  //   }, MESSAGE_TIME);
-  // }
 
   useEffect(() => {
     const recipeId = location.pathname.split('/')[2];
@@ -96,21 +88,6 @@ function DetailsImage() {
               recipeInfo={ recipeInfo }
             />
           </section>
-          {/*  <button
-            className="icon-button"
-            type="button"
-            onClick={ handleFavoriteRecipe }
-          >
-            <img
-              src={ favorite ? BlackHeartIcon : whiteHeartIcon }
-              alt="Favorite Icon"
-              data-testid="favorite-btn"
-            />
-          </button>
-          <ShareBtn
-            testId="share-btn"
-            route={ `/${recipeInfo.type}s/${recipeInfo.id}` }
-          /> */}
         </section>
 
         <Card.Subtitle
