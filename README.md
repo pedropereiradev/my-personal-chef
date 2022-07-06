@@ -30,7 +30,7 @@ aconselhamos utiliza-lo na resolução 320x640.
 
 ## Demonstração
 
-_[My Personal Chef - App de receitas](https://pedropereiradev-trivia.vercel.app/)_
+_[My Personal Chef - App de receitas](https://mypersonalchef.vercel.app/)_
 ## Visualização
 
 ![Login Page Demo](/screenshots/login.png?raw=true "Login Page")
