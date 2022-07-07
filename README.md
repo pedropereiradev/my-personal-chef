@@ -22,6 +22,7 @@ aconselhamos utiliza-lo na resolução 320x640.
 * Utilizar o React Hook useEffect
 * React;
 * React-router-dom;
+* React Hook Form
 * Requisição à API;
 * Escrever testes para garantir que a aplicação possua uma boa cobertura de testes;
 * Bootstrap e React-Bootstrap;
