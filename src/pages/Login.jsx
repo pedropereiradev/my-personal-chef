@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { setMealsToken, setCocktailsToken, setUserLogin } from '../services/login';
@@ -6,37 +7,14 @@ import logo from '../images/appLogo.svg';
 
 const Login = () => {
   const history = useHistory();
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [user, setUser] = useState({ email: '', password: '' });
+  const { register, formState: { errors }, handleSubmit } = useForm();
 
-  const validate = () => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const MIN_PASSWORD_LENGTH = 6;
-    const validation = user.password.length > MIN_PASSWORD_LENGTH
-      && regex.test(user.email);
-
-    setIsDisabled(!validation);
-  };
-
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
-
-  useEffect(() => {
-    validate();
-  }, [user]);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    setUserLogin({ email: user.email });
+  const onSubmit = (data) => {
+    setUserLogin({ email: data.email });
     setMealsToken(1);
     setCocktailsToken(1);
     history.push('/foods');
-  };
+  }
 
   return (
     <section
@@ -54,37 +32,44 @@ const Login = () => {
           />
           <h2 className="name-title">My Personal Chef</h2>
         </section>
-        <Form>
+        <Form onSubmit={ handleSubmit(onSubmit) }>
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label className="text-muted">Email</Form.Label>
             <Form.Control
               type="email"
+              name="email"
               placeholder="Enter your email"
               data-testid="email-input"
-              onChange={ handleChange }
-              name="email"
+              {...register("email", { required: "Email Address is required", pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ }) }
             />
+            <Form.Text className="text-danger ml-2">
+              { errors.email?.message }
+              { (errors.email?.type) === 'pattern' && 'Email format invalid' }
+            </Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label className="text-muted">Password</Form.Label>
             <Form.Control
               type="password"
+              name="password"
               placeholder="Password"
               data-testid="password-input"
-              onChange={ handleChange }
-              name="password"
+              {...register("password", { required: "Password is required", minLength: 6, maxLength: 12 }) }
             />
+            <Form.Text className="text-danger ml-2">
+              { errors.password?.message }
+              {(errors.password?.type) === 'minLength' && 'Password must have at least 6 characters'}
+              {(errors.password?.type) === 'maxLength' && 'Password must have a maximum of 12 characters'}
+            </Form.Text>
           </Form.Group>
           <section className="d-flex justify-content-center mt-4">
             <Button
               className="w-75"
-              variant={ `${isDisabled ? 'outline-danger' : 'danger'}` }
+              variant='danger'
               type="submit"
-              disabled={ isDisabled }
-              onClick={ handleClick }
               data-testid="login-submit-btn"
             >
-              Enter
+              Sign in
             </Button>
           </section>
         </Form>
